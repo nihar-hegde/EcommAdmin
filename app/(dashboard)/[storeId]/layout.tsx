@@ -25,6 +25,7 @@ params:{storeId:string}
     return(
         <>
         <div>This will be a navbar</div>
+        
         {children}
         </>
     )
