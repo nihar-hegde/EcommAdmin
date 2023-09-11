@@ -11,6 +11,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useParams, useRouter } from "next/navigation";
 interface SettingFormProps {
   initialData: Store;
 }
@@ -22,6 +25,8 @@ type SettingFormValues = z.infer<typeof formSchema>;
 
 
 const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
+  const params = useParams();
+  const router = useRouter();
     const [open ,setOpen] = useState(false);
     const [loading ,setLoading] = useState(false);
     const form = useForm<SettingFormValues>({
@@ -29,7 +34,16 @@ const SettingForm: FC<SettingFormProps> = ({ initialData }) => {
         defaultValues:initialData
     });
     const onSubmit = async (data:SettingFormValues)=>{
-        console.log("submit", data);
+        try {
+          setLoading(true);
+          await axios.patch(`/api/stores/${params.storeId}`,data);
+          router.refresh();
+          toast.success("Store Updated")
+        } catch (error) {
+          toast.error('Something went wrong');
+        }finally{
+          setLoading(false);
+        }
     }
   return (
     <>
