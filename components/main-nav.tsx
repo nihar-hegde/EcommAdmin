@@ -13,7 +13,12 @@ export const MainNav = ({className,...props}:HTMLAttributes<HTMLElement>) => {
         href:`/${params.storeId}`,
         label:"OverView",
         active:pathname === `/${params.storeId}`
-        },  
+        },
+        {
+          href:`/${params.storeId}/billboards`,
+          label:"Billboards",
+          active:pathname === `/${params.storeId}/billboards`
+          },  
       {
         href:`/${params.storeId}/settings`,
         label:"Settings",
