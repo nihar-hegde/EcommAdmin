@@ -1,3 +1,4 @@
+'use client'
 import { FC } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Copy, Server } from "lucide-react";
