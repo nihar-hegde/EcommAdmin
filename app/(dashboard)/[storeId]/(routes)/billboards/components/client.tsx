@@ -31,7 +31,7 @@ export const BillboardClient: FC<BillboardClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={data}/>
+      <DataTable searchKey="label" columns={columns} data={data}/>
     </>
   );
 };
