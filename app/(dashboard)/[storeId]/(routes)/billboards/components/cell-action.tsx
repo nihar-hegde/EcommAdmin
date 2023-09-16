@@ -10,17 +10,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import { useParams, useRouter } from "next/navigation";
 
 interface CellActionProps {
   data: BillboardColumn;
 }
 
-export const CellAction: FC<CellActionProps> = ({data}) => {
-    const onCopy = (id:string)=>{
-        navigator.clipboard.writeText(id);
-        toast.success('Billboard Id Copied to the Clipboard.');
-    }
+export const CellAction: FC<CellActionProps> = ({ data }) => {
+  const router = useRouter();
+  const params = useParams();
+  const onCopy = (id: string) => {
+    navigator.clipboard.writeText(id);
+    toast.success("Billboard Id Copied to the Clipboard.");
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,11 +34,19 @@ export const CellAction: FC<CellActionProps> = ({data}) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuItem className="flex items-center" onClick={()=>onCopy(data.id)}>
+        <DropdownMenuItem
+          className="flex items-center"
+          onClick={() => onCopy(data.id)}
+        >
           <Copy className="mr-2 h-4 w-4" />
           Copy Id
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex items-center">
+        <DropdownMenuItem
+          className="flex items-center"
+          onClick={() =>
+            router.push(`/${params.storeId}/billboards/${data.id}`)
+          }
+        >
           <Edit className="mr-2 h-4 w-4" />
           Update
         </DropdownMenuItem>
