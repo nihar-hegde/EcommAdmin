@@ -1,6 +1,6 @@
 "use client";
 import React, { FC, useState } from "react";
-import { BillboardColumn } from "./columns";
+import { CategoryColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,7 +16,7 @@ import axios from "axios";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoryColumn;
 }
 
 export const CellAction: FC<CellActionProps> = ({ data }) => {
@@ -26,20 +26,20 @@ export const CellAction: FC<CellActionProps> = ({ data }) => {
   const [open, setOpen] = useState(false);
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard Id Copied to the Clipboard.");
+    toast.success("Category Id Copied to the Clipboard.");
   };
   const onDelete = async () => {
     try {
       setLoading(true);
       await axios.delete(
-        `/api/${params.storeId}/billboards/${data.id}`
+        `/api/${params.storeId}/categories/${data.id}`
       );
       router.refresh();
       
-      toast.success("Billboard Deleted!!!");
+      toast.success("Category Deleted!!!");
     } catch (error) {
       toast.error(
-        "Make sure you have removed all categories using this billboard."
+        "Make sure you have removed all products using this category."
       );
     } finally {
       setLoading(false);
@@ -73,7 +73,7 @@ export const CellAction: FC<CellActionProps> = ({ data }) => {
           <DropdownMenuItem
             className="flex items-center cursor-pointer"
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/categories/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" />

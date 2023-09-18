@@ -64,15 +64,15 @@ const CategoryForm: FC<CategoryFormProps> = ({ initialData,billboards }) => {
       setLoading(true);
       if (initialData) {
         await axios.patch(
-          `/api/${params.storeId}/billboards/${params.billboardId}`,
+          `/api/${params.storeId}/categories/${params.categoryId}`,
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/billboards`, data);
+        await axios.post(`/api/${params.storeId}/categories`, data);
       }
 
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/categories`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
@@ -84,14 +84,14 @@ const CategoryForm: FC<CategoryFormProps> = ({ initialData,billboards }) => {
     try {
       setLoading(true);
       await axios.delete(
-        `/api/${params.storeId}/billboards/${params.billboardId}`
+        `/api/${params.storeId}/categories/${params.categoriesId}`
       );
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Store Deleted!!!");
+      router.push(`/${params.storeId}/categories`);
+      toast.success("Category Deleted!!!");
     } catch (error) {
       toast.error(
-        "Make sure you have removed all categories using this billboard."
+        "Make sure you have removed all products using this categories."
       );
     } finally {
       setLoading(false);
@@ -166,6 +166,7 @@ const CategoryForm: FC<CategoryFormProps> = ({ initialData,billboards }) => {
                           <SelectItem 
                           key={billboard.id}
                           value={billboard.id}
+                          
                           >
                             {billboard.label}
                           </SelectItem>
